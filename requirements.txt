@@ -1,0 +1,9 @@
+# Core server dependencies - this is everything the MCP server itself needs.
+mcp>=2,<3
+ezdxf>=1.0
+
+# Needed to render previews (render.py, cases/) and to run check_previews.py.
+Pillow>=10
+
+# Optional: only needed for PNG previews; SVG previews do not use it.
+# matplotlib>=3.7
