@@ -74,14 +74,25 @@ Add the block below to your client's MCP config file. **Change three things**: `
 
 Use a full path in `args`; `cwd` is just insurance — some clients don't pass a working directory, and `server.py` locates its sibling modules relative to its own file, so the full path always works. Backslashes in paths must be written as `/` or `\\`; a single `\` is treated as an escape by JSON.
 
-Config file locations differ per client; put it in the right place:
+Config locations differ per client. Add the same `command` / `args` where that client keeps its MCP servers:
 
-| Client | Config file |
+| Client | Where to add the server |
 |---|---|
 | Claude Desktop | `%APPDATA%\Claude\claude_desktop_config.json` (macOS: `~/Library/Application Support/Claude/`) |
-| Cursor | `~/.cursor/mcp.json` |
-| Cline / VS Code | the client's MCP settings UI, or workspace `.vscode/mcp.json` |
-| pi | `~/.pi/agent/mcp.json` |
+| OpenAI Codex CLI | `~/.codex/config.toml`, as an `[mcp_servers.autocad]` table (TOML — see below) |
+| Tencent WorkBuddy | in the app: Connectors → Custom Connector, install an MCP service |
+| Tencent CodeBuddy | CodeBuddy Settings → MCP → Add MCP (`mcpServers` JSON, `type: "stdio"`) |
+| ByteDance Trae | Trae's MCP settings panel (JSON) |
+| Alibaba Qoder | Qoder's MCP settings (JSON) |
+| Alibaba Lingma (通义灵码) | Lingma's MCP settings (JSON) |
+
+Any other MCP-capable client works the same way: add the same `command` / `args` in its MCP settings. Codex uses TOML rather than JSON:
+
+```toml
+[mcp_servers.autocad]
+command = "C:/Python313/python.exe"
+args = ["D:/tools/autocad-mcp/server.py"]
+```
 
 If your client isn't listed, follow its documentation for "adding an MCP server" and supply the same `command` / `args` / `cwd`.
 

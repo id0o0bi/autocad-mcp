@@ -89,14 +89,26 @@ where python
 是按自己所在目录去找同目录的模块的，所以完整路径一定能跑起来。
 路径里的反斜杠要写成 `/` 或 `\\`，单个 `\` 会被 JSON 当成转义符。
 
-各客户端配置文件位置不同，请放在对应的位置：
+各客户端的配置入口不同，把同样的 `command` / `args` 填到对应位置即可：
 
-| 客户端 | 配置文件 |
+| 客户端 | 配置位置 |
 |---|---|
 | Claude Desktop | `%APPDATA%\Claude\claude_desktop_config.json`（macOS：`~/Library/Application Support/Claude/`） |
-| Cursor | `~/.cursor/mcp.json` |
-| Cline / VS Code | 客户端的 MCP 设置界面，或工作区 `.vscode/mcp.json` |
-| pi | `~/.pi/agent/mcp.json` |
+| OpenAI Codex CLI | `~/.codex/config.toml` 里的 `[mcp_servers.autocad]` 表（TOML，见下） |
+| 腾讯 WorkBuddy | 客户端内「连接器 → 自定义连接器」，安装 MCP 服务 |
+| 腾讯 CodeBuddy | CodeBuddy 设置 → MCP → Add MCP（`mcpServers` JSON，`type: "stdio"`） |
+| 字节 Trae | Trae 的 MCP 设置面板（JSON） |
+| 阿里 Qoder | Qoder 的 MCP 设置（JSON） |
+| 阿里通义灵码 | 灵码的 MCP 设置（JSON） |
+
+其他支持 MCP 的客户端同理，在各自「MCP 设置」里填入相同的 `command` / `args`。
+Codex 用的是 TOML：
+
+```toml
+[mcp_servers.autocad]
+command = "C:/Python313/python.exe"
+args = ["D:/tools/autocad-mcp/server.py"]
+```
 
 如果用户用的客户端不在上面，按该客户端文档里「新增 MCP server」的方式，
 填入同样的 `command` / `args` / `cwd` 即可。
